@@ -47,7 +47,7 @@
         audio[0].volume = .60;
         audio[0].play();
         var run = function(link) {
-            audio.src = link.attr('href');
+            audio[0].src = link.attr('href');
             link.parent().addClass('active').siblings().removeClass('active');
             audio[0].load();
             audio[0].play();
