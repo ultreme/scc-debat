@@ -1,8 +1,8 @@
 ﻿<html>
   <head>
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <style type="text/css">
-      #playlist,audio{width:300px;padding:0px;}
+      .playlist,audio{width:300px;padding:0px;}
       .active a{color:white;text-decoration:none;}
       ul {list-style-type: none;}
       li a{color:lightgray;background:#5c595a;padding:6px;display:block;}
@@ -10,41 +10,37 @@
     </style>
   </head>
   <body>
-    <audio id="audio" preload="auto" tabindex="0" controls="" type="audio/mpeg" style="position: absolute; left: 10%; top: 200px;">
+    <audio id="audio1" preload="auto" tabindex="0" controls="" type="audio/mpeg" style="position: absolute; left: 10%; top: 200px;">
       <source type="audio/mp3" src="http://www.archive.org/download/bolero_69/Bolero.mp3" />
-        Sorry, your browser does not support HTML5 audio.
+      Sorry, your browser does not support HTML5 audio.
     </audio>
-    <ul id="playlist" style="position: absolute; left: 10%; top: 210px;">
+    <ul id="playlist1" class="playlist" style="position: absolute; left: 10%; top: 210px;">
       <li class="active"><a href="http://www.archive.org/download/bolero_69/Bolero.mp3">Ravel Bolero</a></li>
       <li><a href="http://www.archive.org/download/MoonlightSonata_755/Beethoven-MoonlightSonata.mp3">Moonlight Sonata - Beethoven</a></li>
       <li><a href="http://www.archive.org/download/CanonInD_261/CanoninD.mp3">Canon in D Pachabel</a></li>
       <li><a href="http://www.archive.org/download/PatrikbkarlChamberSymph/PatrikbkarlChamberSymph_vbr_mp3.zip">patrikbkarl chamber symph</a></li>
     </ul>
-    <audio id="audio" preload="auto" tabindex="0" controls="" type="audio/mpeg" style="position: absolute; right: 10%; top: 200px;">
-      <source type="audio/mp3" src="http://www.archive.org/download/bolero_69/Bolero.mp3" />
-        Sorry, your browser does not support HTML5 audio.
+    <audio id="audio2" preload="auto" tabindex="0" controls="" type="audio/mpeg" style="position: absolute; right: 10%; top: 200px;">
+      <source type="audio/mp3" src="http://www.archive.org/download/bolero_69/Bolero.mp3"/>
+      Sorry, your browser does not support HTML5 audio.
     </audio>
-    <ul id="playlist" style="position: absolute; right: 10%; top: 210px;">
+    <ul id="playlist2" class="playlist" style="position: absolute; right: 10%; top: 210px;">
       <li class="active"><a href="http://www.archive.org/download/bolero_69/Bolero.mp3">Ravel Bolero</a></li>
       <li><a href="http://www.archive.org/download/MoonlightSonata_755/Beethoven-MoonlightSonata.mp3">Moonlight Sonata - Beethoven</a></li>
       <li><a href="http://www.archive.org/download/CanonInD_261/CanoninD.mp3">Canon in D Pachabel</a></li>
       <li><a href="http://www.archive.org/download/PatrikbkarlChamberSymph/PatrikbkarlChamberSymph_vbr_mp3.zip">patrikbkarl chamber symph</a></li>
     </ul>
     <script type="text/javascript">
-    var audio;
-    var playlist;
-    var tracks;
-    var current;
 
-    init();
-    function init(){
-        current = 0;
-        audio = $('audio');
-        playlist = $('#playlist');
-        tracks = playlist.find('li a');
-        len = tracks.length - 1;
+    function init(audio_id, playlist_id){
+        var current = 0;
+        var audio = $(audio_id);
+        var playlist = $(playlist_id);
+        var tracks = playlist.find('li a');
+        var len = tracks.length - 1;
         audio[0].volume = .60;
         audio[0].play();
+        var link;
         playlist.find('a').click(function(e){
             e.preventDefault();
             link = $(this);
@@ -62,6 +58,8 @@
             run($(link),audio[0]);
         });
     }
+    init('#audio1', '#playlist1');
+    init('#audio2', '#playlist2');
     function run(link, player){
             player.src = link.attr('href');
             par = link.parent();
