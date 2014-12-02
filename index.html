@@ -43,33 +43,30 @@
         var playlist = incroyable.find('.playlist');
         var tracks = playlist.find('li a');
         var len = tracks.length - 1;
+        var link;
         audio[0].volume = .60;
         audio[0].play();
-        var link;
-        playlist.find('a').click(function(e){
+        var run = function(link) {
+            audio.src = link.attr('href');
+            link.parent().addClass('active').siblings().removeClass('active');
+            audio[0].load();
+            audio[0].play();
+        }
+        tracks.click(function(e) {
             e.preventDefault();
             link = $(this);
             current = link.parent().index();
             run(link, audio[0]);
         });
-        audio[0].addEventListener('ended',function(e){
+        audio[0].addEventListener('ended', function(e) {
             current++;
-            if(current == len){
+            if (current == len){
                 current = 0;
-                link = playlist.find('a')[0];
-            }else{
-                link = playlist.find('a')[current];
             }
+            link = playlist.find('a')[current];
             run($(link),audio[0]);
         });
     });
-    function run(link, player){
-            player.src = link.attr('href');
-            par = link.parent();
-            par.addClass('active').siblings().removeClass('active');
-            audio[0].load();
-            audio[0].play();
-    }
     </script>
   </body>
 </html>
